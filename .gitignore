@@ -1,0 +1,24 @@
+# Local development
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+
+# Local documentation and tests (intentionally not uploaded)
+tech/
+test/
+tests/
+
+# Source datasets and derived analysis data
+data/atomic_aistpp/
+data/movement-metadata.json
+
+# Generated dance exports
+exported_atomic/
+static/generated/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

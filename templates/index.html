@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtomicDance Builder</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <script
+        type="module"
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js">
+    </script>
+    <script
+        src="{{ url_for('preview_asset', filename='movement-data.js') }}"
+        defer>
+    </script>
+    <script
+        type="module"
+        src="{{ url_for('static', filename='js/app.js') }}"
+        >
+    </script>
+</head>
+<body>
+    <header>
+        <h1>AtomicDance Builder</h1>
+        <p>
+            好きなAtomic Movementを選択して、
+            ダンスを組み立ててください。
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="left-column">
+        <main>
+            <h2>Movement Library</h2>
+            <p>Open the library to search and choose dance movements.</p>
+            <button id="openMovementLibrary" class="open-library-button" type="button">
+                Open Movement Library
+            </button>
+
+            <dialog id="movementLibraryDialog" class="library-dialog">
+                <div class="library-dialog-header">
+                    <div>
+                        <h2>Choose Movements</h2>
+                        <p>Select as many movements as you need.</p>
+                    </div>
+                    <button id="closeMovementLibrary" type="button" aria-label="Close movement library">&times;</button>
+                </div>
+            <div class="library-controls">
+                <label class="movement-search">
+                    <span>Search</span>
+                    <input id="movementSearch" type="search" inputmode="numeric" placeholder="Label number (e.g. 25)">
+                </label>
+                <label>
+                    <span>Sort</span>
+                    <select id="movementSort">
+                        <option value="ascending">Label: 001 &rarr; 200</option>
+                        <option value="descending">Label: 200 &rarr; 001</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Per page</span>
+                    <select id="movementPageSize">
+                        <option value="16">16</option>
+                        <option value="24">24</option>
+                        <option value="48">48</option>
+                    </select>
+                </label>
+                <label class="favorites-filter">
+                    <input id="favoritesOnly" type="checkbox">
+                    Favorites only
+                </label>
+                <label class="favorites-filter">
+                    <input id="recommendationsOnly" type="checkbox">
+                    おすすめのみ
+                </label>
+            </div>
+            <section id="movementRecommendationsSection" class="recommendations-section" hidden>
+                <div class="recommendations-heading">
+                    <h3>おすすめの次のMovement</h3>
+                    <p>現在の最後のステップから自然につながりやすい候補です。</p>
+                </div>
+                <div id="movementRecommendations" class="recommendations-list"></div>
+            </section>
+            <div class="library-summary">
+                <span id="movementCount" aria-live="polite"></span>
+                <div class="library-pagination">
+                    <button id="previousMovementPage" type="button">&larr; Prev</button>
+                    <span id="movementPageStatus"></span>
+                    <button id="nextMovementPage" type="button">Next &rarr;</button>
+                </div>
+            </div>
+            <div
+                id="movementLibrary"
+                class="library"
+                aria-live="polite">
+            </div>
+            <div class="library-pagination library-pagination-bottom">
+                <button id="previousMovementPageBottom" type="button">&larr; Prev</button>
+                <span id="movementPageStatusBottom"></span>
+                <button id="nextMovementPageBottom" type="button">Next &rarr;</button>
+            </div>
+            </dialog>
+        </main>
+
+        <section class="steps-panel">
+            <h2>Dance Steps</h2>
+            <div id="selectedSteps" aria-live="polite"></div>
+
+            <button id="generateButton" type="button">
+                ダンスを生成
+            </button>
+
+        </section>
+        </div>
+
+        <aside class="preview-panel">
+            <h2>3D Preview</h2>
+            <model-viewer
+                id="danceViewer"
+                camera-controls
+                camera-orbit="0deg 95deg 5.832m"
+                camera-target="-3.043m 0.902m 0.022m"
+                field-of-view="30deg"
+                max-camera-orbit="auto auto 500%"
+                autoplay
+                shadow-intensity="1"
+                interaction-prompt="none">
+            </model-viewer>
+            <div class="camera-toolbar" aria-label="Camera controls">
+                <button type="button" id="animationToggle" class="animation-toggle" aria-label="Pause animation">&#x23F8; Pause</button>
+                <button type="button" data-camera-action="left" aria-label="Rotate left">&#x21B6;</button>
+                <button type="button" data-camera-action="right" aria-label="Rotate right">&#x21B7;</button>
+                <button type="button" data-camera-action="up" aria-label="Rotate up">&#x2191;</button>
+                <button type="button" data-camera-action="down" aria-label="Rotate down">&#x2193;</button>
+                <button type="button" data-camera-action="zoom-in" aria-label="Zoom in">&#xFF0B;</button>
+                <button type="button" data-camera-action="zoom-out" aria-label="Zoom out">&#x2212;</button>
+                <button type="button" data-camera-action="reset" class="camera-reset">Reset</button>
+            </div>
+        </aside>
+    </div>
+
+    <noscript>
+        このアプリを使用するにはJavaScriptを有効にしてください。
+    </noscript>
+</body>
+</html>

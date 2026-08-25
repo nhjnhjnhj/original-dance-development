@@ -1,0 +1,405 @@
+:root {
+    color: #1f2937;
+    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    background: #f5f5f5;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+header {
+    width: calc(50% - 15px);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+    align-items: start;
+}
+
+.left-column {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 12px;
+}
+
+main h2 {
+    margin-top: 0;
+}
+
+.steps-panel {
+    order: -1;
+}
+
+.preview-panel {
+    min-width: 0;
+}
+
+.open-library-button {
+    width: min(100%, 360px);
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.open-library-button:hover {
+    background: #1d4ed8;
+}
+
+.library-dialog {
+    width: min(94vw, 1500px);
+    height: 90vh;
+    max-width: none;
+    max-height: none;
+    padding: 22px;
+    border: 0;
+    border-radius: 12px;
+    background: #f8fafc;
+    box-shadow: 0 24px 70px rgb(0 0 0 / 30%);
+}
+
+.library-dialog::backdrop {
+    background: rgb(15 23 42 / 68%);
+    backdrop-filter: blur(2px);
+}
+
+.library-dialog-header {
+    position: sticky;
+    z-index: 2;
+    top: -22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: -22px -22px 20px;
+    padding: 20px 22px 14px;
+    border-bottom: 1px solid #ddd;
+    background: #f8fafc;
+}
+
+.library-dialog-header h2,
+.library-dialog-header p {
+    margin: 0;
+}
+
+.library-dialog-header p {
+    margin-top: 4px;
+    color: #64748b;
+}
+
+#closeMovementLibrary {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: #e5e7eb;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.library-dialog .library {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+
+.library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.library-controls {
+    display: grid;
+    grid-template-columns: minmax(180px, 2fr) repeat(2, minmax(120px, 1fr));
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 14px;
+}
+
+.library-controls label:not(.favorites-filter) {
+    display: grid;
+    gap: 5px;
+    font-size: 13px;
+    color: #4b5563;
+}
+
+.library-controls input[type="search"],
+.library-controls select {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    background: #fff;
+    font: inherit;
+}
+
+.favorites-filter {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    cursor: pointer;
+}
+
+.recommendations-section {
+    margin: 0 0 20px;
+    padding: 16px;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    background: #eff6ff;
+}
+
+.recommendations-heading h3,
+.recommendations-heading p {
+    margin: 0;
+}
+
+.recommendations-heading p {
+    margin-top: 4px;
+    color: #475569;
+    font-size: 14px;
+}
+
+.recommendations-list {
+    display: grid;
+    grid-auto-columns: minmax(190px, 230px);
+    grid-auto-flow: column;
+    gap: 12px;
+    margin-top: 12px;
+    padding-bottom: 6px;
+    overflow-x: auto;
+}
+
+.compatibility-score {
+    margin: -6px 0 8px;
+    color: #1d4ed8;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.library-summary,
+.library-pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.library-summary {
+    justify-content: space-between;
+    margin-bottom: 14px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.library-pagination button {
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.library-pagination button:disabled {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.library-pagination-bottom {
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.card,
+.steps-panel,
+.preview-panel {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.card {
+    padding: 12px;
+    text-align: center;
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+}
+
+.card-actions {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.card-actions button {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.card-actions .favorite-button {
+    color: #d97706;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.steps-panel,
+.preview-panel {
+    padding: 20px;
+}
+
+.preview-panel {
+    position: sticky;
+    top: 10px;
+    margin-top: -105px;
+    height: fit-content;
+}
+
+.steps-panel h2,
+.preview-panel h2 {
+    margin-top: 0;
+}
+
+#selectedSteps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.step-name {
+    flex: 1;
+}
+
+.step button {
+    cursor: pointer;
+}
+
+.empty {
+    color: #888;
+}
+
+#generateButton {
+    width: min(100%, 360px);
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#generateButton:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+#danceViewer {
+    display: none;
+    width: 100%;
+    height: clamp(460px, 56vh, 650px);
+    background: #eee;
+    border-radius: 8px;
+}
+
+.camera-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.camera-toolbar button {
+    min-width: 42px;
+    min-height: 38px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.camera-toolbar button:hover {
+    background: #f0f0f0;
+}
+
+.camera-toolbar .camera-reset {
+    width: auto;
+    font-size: 14px;
+}
+
+.camera-toolbar .animation-toggle {
+    width: auto;
+    min-width: 92px;
+    font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+    body {
+        padding: 20px;
+    }
+
+    header {
+        width: auto;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .preview-panel {
+        position: static;
+        margin-top: 0;
+    }
+
+    #danceViewer {
+        height: min(60vh, 540px);
+    }
+}
+
+@media (max-width: 620px) {
+    .library-controls {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .movement-search,
+    .favorites-filter {
+        grid-column: 1 / -1;
+    }
+
+    .library-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
