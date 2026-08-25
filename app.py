@@ -38,6 +38,21 @@ def index():
     return render_template("index.html")
 
 
+@app.get("/pose-editor")
+def pose_editor():
+    """Phase 1の独立したポーズ編集画面を返す。"""
+
+    return render_template("pose_editor.html")
+
+
+@app.get("/assets/<path:filename>")
+def model_asset(filename):
+    """ポーズ編集画面で使用するモデル資産を返す。"""
+
+    mimetype = "model/gltf-binary" if filename.lower().endswith(".glb") else None
+    return send_from_directory(BASE_DIR / "assets", filename, mimetype=mimetype)
+
+
 @app.get("/previews/<path:filename>")
 def preview_asset(filename):
     """自動生成されたMovementデータとGIFを返す。"""

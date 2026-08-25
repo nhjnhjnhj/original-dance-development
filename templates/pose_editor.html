@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Editor | AtomicDance Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pose-editor.css') }}">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/pose-editor.js') }}"></script>
+</head>
+<body data-model-url="{{ url_for('model_asset', filename='ybot.glb') }}">
+    <header class="editor-header">
+        <div>
+            <a href="{{ url_for('index') }}">&larr; Dance Builder</a>
+            <h1>Pose Editor</h1>
+            <p>関節を選び、回転させて一つのキーポーズを作成します。</p>
+        </div>
+        <div class="file-actions">
+            <button id="resetPose" type="button" class="secondary">初期姿勢に戻す</button>
+            <button id="loadPose" type="button" class="secondary">JSONを読み込む</button>
+            <button id="savePose" type="button" class="primary">JSONを保存</button>
+            <input id="poseFile" type="file" accept="application/json,.json" hidden>
+        </div>
+    </header>
+
+    <main class="editor-layout">
+        <section class="viewport-panel" aria-label="3D pose viewport">
+            <div id="viewport"></div>
+            <div id="loadingStatus" class="loading-status" role="status">YBotを読み込んでいます…</div>
+            <div class="viewport-help">●をクリックして関節を選択 / ドラッグで回転 / 背景ドラッグでカメラ操作</div>
+        </section>
+
+        <aside class="control-panel">
+            <section>
+                <p class="eyebrow">選択中の関節</p>
+                <h2 id="selectedJointName">未選択</h2>
+                <p id="selectedJointHint" class="muted">モデル上のマーカーまたは一覧から選択してください。</p>
+            </section>
+
+            <section>
+                <div class="section-heading">
+                    <h3>回転</h3>
+                    <button id="resetJoint" type="button" class="text-button" disabled>この関節をリセット</button>
+                </div>
+                <div class="rotation-fields">
+                    <label>X <input id="rotationX" type="range" min="-180" max="180" step="1" value="0" disabled><output for="rotationX">0°</output></label>
+                    <label>Y <input id="rotationY" type="range" min="-180" max="180" step="1" value="0" disabled><output for="rotationY">0°</output></label>
+                    <label>Z <input id="rotationZ" type="range" min="-180" max="180" step="1" value="0" disabled><output for="rotationZ">0°</output></label>
+                </div>
+                <p class="muted small">回転は選択した関節のローカル軸に適用されます。</p>
+            </section>
+
+            <section>
+                <h3>主要関節</h3>
+                <div id="jointGroups" class="joint-groups"></div>
+            </section>
+
+            <p id="editorMessage" class="editor-message" aria-live="polite"></p>
+        </aside>
+    </main>
+</body>
+</html>
